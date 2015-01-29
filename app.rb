@@ -30,12 +30,10 @@ post '/recipe_add' do
   title = params.fetch("title")
   instructions = params.fetch("instructions")
   ingredient_ids = params.fetch("ingredients")
-  ingredients = []
-  ingredient_ids.each() do |id|
-    ingredients.push(Ingredient.find(id.to_i()))
-  end
   recipe = Recipe.create({:title => title, :instructions => instructions})
-  recipe.ingredients(ingredients)
+  ingredient_ids.each() do |id|
+    recipe.ingredients() << Ingredient.find(id.to_i())
+  end
   redirect '/'
 end
 
