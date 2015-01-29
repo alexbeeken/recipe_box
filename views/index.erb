@@ -1,0 +1,31 @@
+<h1>Recipes for Dog Food!</h1>
+
+
+<h2>Recipes</h2>
+
+<ol>
+<% @recipes.each() do |recipe| %>
+  <li>
+    <%= "<a href='/recipe/#{recipe.id}'>#{recipe.title}</a>" %>
+  </li>
+  <% end %>
+</ol>
+
+<a href='/new_recipe'>Add a recipe</a>
+
+<h2>Ingredients</h2>
+
+<ol>
+<% @ingredients.each() do |ingredient| %>
+  <li>
+    <%= "<a href='/ingredient/#{ingredient.id}'>#{ingredient.name}</a>" %>
+  </li>
+  <% end %>
+</ol>
+
+<form action='/add_ingredient' method='post'>
+  <input type='text' name='name' placeholder='Ingredient'>
+  <input type='submit' value='Add Ingredient'>
+</form>
+
+<p> woof </p>
