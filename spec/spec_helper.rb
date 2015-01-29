@@ -10,5 +10,8 @@ RSpec.configure do |config|
     Recipe.all().each() do |recipe|
       recipe.destroy()
     end
+    Category.all().each() do |category|
+      category.destroy()
+    end
   end
 end

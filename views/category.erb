@@ -1,0 +1,10 @@
+<h1>The recipes in <%= @category.name()%></h1>
+
+
+<ul>
+<% @category.recipes().each() do |recipe| %>
+  <li><%= recipe.title() %></li>
+<% end %>
+</ul>
+
+<a href='/'>Go Back</a>

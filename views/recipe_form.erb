@@ -19,9 +19,19 @@
 
   <br>
 
+  <p>Add Ingredients</p>
+
   <% @ingredients.each do |ingredient| %>
 
     <%= "<input type='checkbox' name='ingredients[]' value='#{ingredient.id}'>#{ingredient.name}<br>" %>
+
+  <% end %>
+
+  <p>Add Category</p>
+
+  <% @categories.each do |category| %>
+
+  <%= "<input type='checkbox' name='categories[]' value='#{category.id}'>#{category.name}<br>" %>
 
   <% end %>
 
@@ -32,6 +42,11 @@
 <form action='/add_ingredient_recipe_form' method='post'>
   <input type='text' name='name' placeholder='Ingredient'>
   <input type='submit' value='Add Ingredient'>
+</form>
+
+<form action='/add_category_recipe_form' method='post'>
+  <input type='text' name='name' placeholder='Category'>
+  <input type='submit' value='Add Category'>
 </form>
 
 <% end %>

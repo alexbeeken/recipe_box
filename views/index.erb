@@ -28,4 +28,19 @@
   <input type='submit' value='Add Ingredient'>
 </form>
 
+<h2>Recipe Categories</h2>
+
+<ol>
+<% @categories.each() do |category| %>
+  <li>
+    <%= "<a href='/category/#{category.id}'>#{category.name}</a>"%>
+  </li>
+<% end %>
+</ol>
+
+<form action="/add_category" method="post">
+  <input type="text" name="name" placeholder="Snacks">
+  <input type="submit" value="Add Category">
+</form>
+
 <p> woof </p>
