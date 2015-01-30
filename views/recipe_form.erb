@@ -1,54 +1,109 @@
 <% if @edit %>
 
+  <h1>Edit Recipe</h1>
+
+  <form action='/recipe_edit' method = "post">
+    <input type="hidden" name="_method" value="patch">
+    <input type="hidden" name="id" value="<%= @recipe.id %>">
+
+    <br>
+
+    <label for="title">Title of recipe</label>
+    <input id="title" name="title" placeholer="Mona's Biscuits" type="text" value="<%= @recipe.title %>">
+
+    <br>
+
+    <label for="instructions">Instructions</label>
+    <textarea id="instructions" name="instructions" cols="40" rows="5" value="<%= @recipe.instructions %>"></textarea>
+
+    <br>
+
+    <p>Add Ingredients</p>
+
+    <% @ingredients.each do |ingredient| %>
+
+      <% if @recipe.ingredients().include?(ingredient) %>
+
+        <%= "<input type='checkbox' name='ingredients[]' value='#{ingredient.id}' checked>#{ingredient.name}<br>" %>
+
+      <% else %>
+
+        <%= "<input type='checkbox' name='ingredients[]' value='#{ingredient.id}'>#{ingredient.name}<br>" %>
+
+      <% end %>
+
+    <% end %>
+
+    <p>Add Category</p>
+
+    <% @categories.each do |category| %>
+
+      <% if @recipe.categories().include?(category) %>
+
+        <%= "<input type='checkbox' name='categories[]' value='#{category.id}' checked>#{category.name}<br>" %>
+
+      <% else %>
+
+        <%= "<input type='checkbox' name='categories[]' value='#{category.id}'>#{category.name}<br>" %>
+
+      <% end %>
+
+    <% end %>
+
+    <input type="submit" value="Save Recipe">
+
+  </form>
 
 <% else %>
 
-<h1>Add A New Recipe</h1>
+  <h1>Add A New Recipe</h1>
 
-<form action='/recipe_add' method = "post">
+  <form action='/recipe_add' method = "post">
 
-  <br>
+    <br>
 
-  <label for="title">Title of recipe</label>
-  <input id="title" name="title" placeholer="Mona's Biscuits" type="text">
+    <label for="title">Title of recipe</label>
+    <input id="title" name="title" placeholer="Mona's Biscuits" type="text">
 
-  <br>
+    <br>
 
-  <label for="instructions">Instructions</label>
-  <textarea id="instructions" name="instructions" cols="40" rows="5"></textarea>
+    <label for="instructions">Instructions</label>
+    <textarea id="instructions" name="instructions" cols="40" rows="5"></textarea>
 
-  <br>
+    <br>
 
-  <p>Add Ingredients</p>
+    <p>Add Ingredients</p>
 
-  <% @ingredients.each do |ingredient| %>
+    <% @ingredients.each do |ingredient| %>
 
-    <%= "<input type='checkbox' name='ingredients[]' value='#{ingredient.id}'>#{ingredient.name}<br>" %>
+      <%= "<input type='checkbox' name='ingredients[]' value='#{ingredient.id}'>#{ingredient.name}<br>" %>
 
-  <% end %>
+    <% end %>
 
-  <p>Add Category</p>
+    <p>Add Category</p>
 
-  <% @categories.each do |category| %>
+    <% @categories.each do |category| %>
 
-  <%= "<input type='checkbox' name='categories[]' value='#{category.id}'>#{category.name}<br>" %>
+      <%= "<input type='checkbox' name='categories[]' value='#{category.id}'>#{category.name}<br>" %>
 
-  <% end %>
+    <% end %>
 
-  <input type="submit" value="Save Recipe">
+    <input type="submit" value="Save Recipe">
 
-</form>
+  </form>
 
-<form action='/add_ingredient_recipe_form' method='post'>
-  <input type='text' name='name' placeholder='Ingredient'>
-  <input type='submit' value='Add Ingredient'>
-</form>
+  <form action='/add_ingredient_recipe_form' method='post'>
+    <input type='text' name='name' placeholder='Ingredient'>
+    <input type='submit' value='Add Ingredient'>
+  </form>
 
-<form action='/add_category_recipe_form' method='post'>
-  <input type='text' name='name' placeholder='Category'>
-  <input type='submit' value='Add Category'>
-</form>
+  <form action='/add_category_recipe_form' method='post'>
+    <input type='text' name='name' placeholder='Category'>
+    <input type='submit' value='Add Category'>
+  </form>
 
 <% end %>
+
+
 
 <a href='/'>Go back</a>

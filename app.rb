@@ -13,8 +13,15 @@ end
 
 get '/recipe/:id' do
   @recipe = Recipe.find(params.fetch("id").to_i)
-  @ingredients = @recipe.ingredients
   erb(:recipe)
+end
+
+get '/recipe/:id/edit' do
+  @edit = true
+  @recipe = Recipe.find(params.fetch("id").to_i)
+  @ingredients = @recipe.ingredients
+  @categories = Category.all()
+  erb(:recipe_form)
 end
 
 get '/ingredient/:id' do
@@ -40,6 +47,28 @@ post '/recipe_add' do
   category_ids.each() do |id|
     recipe.categories() << Category.find(id.to_i())
   end
+  redirect '/'
+end
+
+patch '/recipe_edit' do
+  recipe = Recipe.find(params.fetch("id").to_i)
+  title = params.fetch("title")
+  instructions = params.fetch("instructions")
+  recipe.update({:title => title, :instructions => instructions})
+
+  ingredient_ids = params.fetch("ingredients")
+  ingredients = []
+  ingredient_ids.each() do |id|
+    ingredients.push(Ingredient.find(id.to_i()))
+  end
+  recipe.update_ingredients(ingredients)
+
+  category_ids = params.fetch("categories")
+  categories = []
+  category_ids.each() do |id|
+    categories.push(Category.find(id.to_i()))
+  end
+  recipe.update_categories(categories)
   redirect '/'
 end
 
